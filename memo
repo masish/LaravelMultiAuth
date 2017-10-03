@@ -1,0 +1,26 @@
+
+<参考資料>
+タイトル：Laravel5.3でソーシャル連携ウェブサービスの土台を作る(Socialite/Twitter)
+アドレス：http://qiita.com/maimai-swap/items/c19e7eac59181091388d
+
+タイトル：Laravelでソーシャル認証(Twitter, Facebook, Google)を実装してみた
+アドレス：https://urashita.com/archives/8848
+
+タイトル：Laravelでブログを作成する方法【チュートリアル】
+アドレス：https://manablog.org/how-to-make-cms-using-laravel/
+
+タイトル：祝：Laravelが5.2で"MultiAuth"に対応！
+アドレス：http://qiita.com/zaburo/items/cd3f2ccfb5c2d0fba340
+
+タイトル：Laravel5.4でマルチ認証
+アドレス：http://qiita.com/hai/items/52006341bb9f075e16b3
+
+- 作業
+======
+
+選手登録を作る
+~~~~~~~~~~~~
+
+1. テーブルの雛形作成
+php artisan make:migration create_player_table
+
