@@ -40,6 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
 {
     Route::resource('player', 'Admin\PlayerController');
+    Route::resource('club', 'Admin\ClubController');
 });
 
 
