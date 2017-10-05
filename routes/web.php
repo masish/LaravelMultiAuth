@@ -28,6 +28,22 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('home', 'Admin\HomeController@index')->name('admin.home');
 });
 
+/*
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
+{
+    Route::get('player', 'Admin\PlayerController@index');
+    Route::get('player/detail/{id}', 'Admin\PlayerController@show');
+    Route::get('player/edit/{id}', 'Admin\PlayerController@edit');
+    Route::post('player/edit', 'Admin\PlayerController@update');
+});
+*/
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
+{
+    Route::resource('player', 'Admin\PlayerController');
+    Route::resource('club', 'Admin\ClubController');
+});
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Twitter

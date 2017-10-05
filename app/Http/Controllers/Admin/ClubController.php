@@ -4,17 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Player;
+use App\Club;
 
-class PlayerController extends Controller
+class ClubController extends Controller
 {
 
-    // ãƒãƒªãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ«ãƒ¼ãƒ«
+    // ƒoƒŠƒf[ƒVƒ‡ƒ“‚Ìƒ‹[ƒ‹
     public $validateRules = [
         'name' => 'required',
-        'number' => 'required',
-        'club_id' => 'required',
-        'position' => 'required',
     ];
 
     /**
@@ -24,8 +21,8 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::orderBy('number', 'asc')->paginate(20);
-        return view('admin.player.index', compact('players'));
+        $clubs = Club::orderBy('id', 'asc')->paginate(20);
+        return view('admin.club.index', compact('clubs'));
     }
 
     /**
@@ -35,8 +32,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-       $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
-       return view('admin.player.create', compact('clubs'));
+       return view('admin.club.create');
     }
 
     /**
@@ -48,9 +44,9 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->validateRules);
-        Player::create($request->all());
-        \Session::flash('flash_message', 'é¸æ‰‹ã‚’ä½œæˆã—ã¾ã—ãŸã€‚');
-        return redirect('admin/player');
+        Club::create($request->all());
+        \Session::flash('flash_message2', 'ƒNƒ‰ƒu‚ğì¬‚µ‚Ü‚µ‚½B');
+        return redirect('admin/club');
     }
 
     /**
@@ -61,8 +57,8 @@ class PlayerController extends Controller
      */
     public function show($id)
     {
-        $player = Player::findOrFail($id);
-        return view('admin.player.show', compact('player'));
+        $club = Club::findOrFail($id);
+        return view('admin.club.show', compact('club'));
     }
 
     /**
@@ -73,9 +69,8 @@ class PlayerController extends Controller
      */
     public function edit($id)
     {
-        $player = Player::findOrFail($id);
-        $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
-        return view('admin.player.edit', compact('player',$clubs));
+        $club = Club::findOrFail($id);
+        return view('admin.club.edit', compact('club'));
     }
 
     /**
@@ -88,10 +83,10 @@ class PlayerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->validateRules);
-        $player = Player::findOrFail($id);
-        $player->update($request->all());
-        \Session::flash('flash_message', 'é¸æ‰‹ã®æƒ…å ±ã‚’æ›´æ–°ã—ã¾ã—ãŸã€‚');
-        return redirect('admin/player');
+        $club = Club::findOrFail($id);
+        $club->update($request->all());
+        \Session::flash('flash_message2', 'ƒNƒ‰ƒu‚Ìî•ñ‚ğXV‚µ‚Ü‚µ‚½B');
+        return redirect('admin/club');
     }
 
     /**
@@ -102,9 +97,10 @@ class PlayerController extends Controller
      */
     public function destroy($id)
     {
-        $player = Player::findOrFail($id);
-        $player->delete($id);
-        \Session::flash('flash_message', 'é¸æ‰‹ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚');
-        return redirect('admin/player');
+        $club = Club::findOrFail($id);
+        $club->delete($id);
+        \Session::flash('flash_message2', '‘Iè‚ğíœ‚µ‚Ü‚µ‚½B');
+        return redirect('admin/club');
+
     }
 }

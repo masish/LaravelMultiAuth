@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Player extends Model
+class Club extends Model
 {
     protected $guarded = ['id', 'created_at'];
 
-    public function club()
+    public function players()
     {
-        return $this->belongsTo('App\Club');
+        return $this->hasMany('App\Player');
     }
-
 }
