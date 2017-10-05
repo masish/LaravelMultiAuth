@@ -9,7 +9,7 @@
                 <div class="panel-body">
                     <div>
                         <h1>{{ $player->name }}</h1>
-                        <p>{{ $player->club }}</p>
+                        <p>{{ $player->club->name }}</p>
                         <p>{{ $player->number }}</p>
                         <p>{{ $player->position }}</p>
                     </div>

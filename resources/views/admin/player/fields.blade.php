@@ -13,9 +13,9 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('club', '所属クラブ:', ['class' => 'col-sm-2 control-label']) !!}
+    {!! Form::label('club_id', '所属クラブ:', ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::select('club', [1 => 'マンチェスターユナイテッド']) !!}
+        {!! Form::select('club_id', $clubs) !!}
     </div>
 </div>
 

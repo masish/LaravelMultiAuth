@@ -13,7 +13,7 @@ class PlayerController extends Controller
     public $validateRules = [
         'name' => 'required',
         'number' => 'required',
-        'club' => 'required',
+        'club_id' => 'required',
         'position' => 'required',
     ];
 
@@ -35,7 +35,8 @@ class PlayerController extends Controller
      */
     public function create()
     {
-       return view('admin.player.create');
+       $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
+       return view('admin.player.create', compact('clubs'));
     }
 
     /**
@@ -73,7 +74,8 @@ class PlayerController extends Controller
     public function edit($id)
     {
         $player = Player::findOrFail($id);
-        return view('admin.player.edit', compact('player'));
+        $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
+        return view('admin.player.edit', compact('player',$clubs));
     }
 
     /**
