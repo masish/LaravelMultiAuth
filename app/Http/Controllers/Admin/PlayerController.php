@@ -86,13 +86,10 @@ class PlayerController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, $this->validateRules);
- 
-        $post = Player::findOrFail($id);
-        $post->update($request->all());
- 
+        $player = Player::findOrFail($id);
+        $player->update($request->all());
         \Session::flash('flash_message', '選手の情報を更新しました。');
         return redirect('admin/player');
-
     }
 
     /**
