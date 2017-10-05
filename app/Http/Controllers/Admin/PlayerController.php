@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Player;
 
 class PlayerController extends Controller
 {
+
+    // バリデーションのルール
+    public $validateRules = [
+        'name' => 'required',
+        'number' => 'required',
+        'club' => 'required',
+        'position' => 'required',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +24,8 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('number', 'asc')->paginate(20);
-        return view('admin.player.index', compact('player'));
+        $players = Player::orderBy('number', 'asc')->paginate(20);
+        return view('admin.player.index', compact('players'));
     }
 
     /**
@@ -25,7 +35,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+       return view('admin.player.create');
     }
 
     /**
@@ -36,7 +46,10 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, $this->validateRules);
+        Player::create($request->all());
+        \Session::flash('flash_message', '選手を作成しました。');
+        return redirect('admin/player');
     }
 
     /**
@@ -47,7 +60,8 @@ class PlayerController extends Controller
      */
     public function show($id)
     {
-        //
+        $player = Player::findOrFail($id);
+        return view('admin.player.show', compact('player'));
     }
 
     /**
@@ -58,7 +72,8 @@ class PlayerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $player = Player::findOrFail($id);
+        return view('admin.player.edit', compact('player'));
     }
 
     /**
@@ -70,7 +85,14 @@ class PlayerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->validateRules);
+ 
+        $post = Player::findOrFail($id);
+        $post->update($request->all());
+ 
+        \Session::flash('flash_message', '選手の情報を更新しました。');
+        return redirect('admin/player');
+
     }
 
     /**
@@ -81,6 +103,9 @@ class PlayerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $player = Player::findOrFail($id);
+        $player->delete($id);
+        \Session::flash('flash_message', '選手を削除しました。');
+        return redirect('admin/player');
     }
 }
