@@ -11,7 +11,7 @@ class ClubController extends Controller
 
     // バリデーションのルール
     public $validateRules = [
-        'name' => 'required',
+        'name' => 'required|max:255',
     ];
 
     /**
