@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        Config::set(['stadium' => [1 => 'ƒI[ƒ‹ƒhEƒgƒ‰ƒtƒH[ƒh',2 => 'ƒXƒ^ƒ“ƒtƒH[ƒhƒuƒŠƒbƒW']]);
+        Config::set(['stadium' => [1 => 'ã‚ªãƒ¼ãƒ«ãƒ‰ãƒ»ãƒˆãƒ©ãƒ•ã‚©ãƒ¼ãƒ‰',2 => 'ã‚¹ã‚¿ãƒ³ãƒ•ã‚©ãƒ¼ãƒ‰ãƒ–ãƒªãƒƒã‚¸']]);
         Config::set(['position' => [0 => 'GK',1 => 'DF',2 => 'MF',3 => 'FW']]);
     }
 
