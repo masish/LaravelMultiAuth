@@ -11,7 +11,7 @@
                         <h1>{{ $player->name }}</h1>
                         <p>{{ $player->club->name }}</p>
                         <p>{{ $player->number }}</p>
-                        <p>{{ $player->position }}</p>
+                        <p>{{ $positions[$player->position] }}</p>
                     </div>
                 </div>
             </div>

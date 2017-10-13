@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Player;
+use Config;
 
 class PlayerController extends Controller
 {
@@ -25,7 +26,8 @@ class PlayerController extends Controller
     public function index()
     {
         $players = Player::orderBy('number', 'asc')->paginate(20);
-        return view('admin.player.index', compact('players'));
+        $positions = Config::get('position');
+        return view('admin.player.index', compact('players','positions'));
     }
 
     /**
@@ -36,7 +38,8 @@ class PlayerController extends Controller
     public function create()
     {
        $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
-       return view('admin.player.create', compact('clubs'));
+       $positions = Config::get('position');
+       return view('admin.player.create', compact('clubs','positions'));
     }
 
     /**
@@ -62,7 +65,8 @@ class PlayerController extends Controller
     public function show($id)
     {
         $player = Player::findOrFail($id);
-        return view('admin.player.show', compact('player'));
+        $positions = Config::get('position');
+        return view('admin.player.show', compact('player','positions'));
     }
 
     /**
@@ -75,7 +79,8 @@ class PlayerController extends Controller
     {
         $player = Player::findOrFail($id);
         $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
-        return view('admin.player.edit', compact('player',$clubs));
+        $positions = Config::get('position');
+        return view('admin.player.edit', compact('player','clubs','positions'));
     }
 
     /**

@@ -31,7 +31,7 @@
                                 <td>{{ $player->club->name }}</td>
                                 <td>{{ $player->name }}</td>
                                 <td>{{ $player->number }}</td>
-                                <td>{{ $player->position }}</td>
+                                <td>{{ $positions[$player->position] }}</td>
                                 <td>{{ $player->created_at->format('Y年m月d日') }}</td>
                                 <td>
                                     {!! link_to_action('Admin\PlayerController@show', '表示', [$player->id]) !!}
