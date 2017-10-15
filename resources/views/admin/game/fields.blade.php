@@ -1,7 +1,10 @@
 <div class="form-group">
     {!! Form::label('name', '開催日:', ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::date('game_time', null, ['class' => 'form-control']) !!}
+        {!! Form::date('game_date', null, ['class' => 'form-control']) !!}
+    </div>
+    <div class="col-sm-10">
+        {!! Form::time('game_time', null, ['class' => 'form-control']) !!}
     </div>
 </div>
 
