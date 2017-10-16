@@ -32,7 +32,7 @@
                                 <td>{{ $stadiums[$game->stadium_id] }}</td>
                                 <td>{{ $game->home_club }}</td>
                                 <td>{{ $game->away_club }}</td>
-                                <td>{{ $game->created_at->format('Y年m月d日') }}</td>
+                                <td>{{ $game->created_at }}</td>
                                 <td>
                                     {!! link_to_action('Admin\GameController@show', '表示', [$game->id]) !!}
                                     {!! link_to_action('Admin\GameController@edit', '編集', [$game->id]) !!}

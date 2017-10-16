@@ -8,14 +8,10 @@ use App\Game;
 use App\Player;
 use App\Club;
 use Config;
+use App\Http\Requests\GameRequests;
 
 class GameController extends Controller
 {
-
-    // ƒoƒŠƒf[ƒVƒ‡ƒ“‚Ìƒ‹[ƒ‹
-    public $validateRules = [
-        'game_time' => 'required|date',
-    ];
 
     /**
      * Display a listing of the resource.
@@ -24,7 +20,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = \DB::table('games')->orderBy('game_time','desc')->select('game_time','stadium_id','home.name as home_club', 'away.name as away_club')
+        $games = \DB::table('games')->orderBy('game_time','desc')->select('games.id as id','game_time','stadium_id','home.name as home_club', 'away.name as away_club', 'games.created_at as created_at')
                     ->join('clubs as home','games.home_club_id','=','home.id')
                     ->join('clubs as away','games.away_club_id','=','away.id')
                     ->get();
@@ -39,10 +35,11 @@ class GameController extends Controller
      */
     public function create()
     {
-       $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
-       $players = \App\Player::orderBy('id','asc')->pluck('name', 'id');
-       $stadiums = Config::get('stadium');
-       return view('admin.game.create', compact('clubs','players','stadiums'));
+        $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
+        $players = \App\Player::orderBy('id','asc')->pluck('name', 'id');
+        $players->prepend('',0);
+        $stadiums = Config::get('stadium');
+        return view('admin.game.create', compact('clubs','players','stadiums'));
     }
 
     /**
@@ -51,11 +48,15 @@ class GameController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GameRequests $request)
     {
-        $this->validate($request, $this->validateRules);
-        Game::create($request->all());
-        \Session::flash('flash_message', 'ƒQ[ƒ€‚ğì¬‚µ‚Ü‚µ‚½B');
+        $game = Game::create($request->except(['g_date','g_time']));
+        if (!$game->game_time) {
+            $game->game_time = null;
+        }
+        $game->save();
+        //Game::create($request->all());
+        \Session::flash('flash_message', 'ã‚²ãƒ¼ãƒ ã‚’ä½œæˆã—ã¾ã—ãŸã€‚');
         return redirect('admin/game');
     }
 
@@ -79,8 +80,15 @@ class GameController extends Controller
      */
     public function edit($id)
     {
+        $clubs = \App\Club::orderBy('id','asc')->pluck('name', 'id');
+        $players = \App\Player::orderBy('id','asc')->pluck('name', 'id');
+        $players->prepend('',0);
+        $stadiums = Config::get('stadium');
         $game = Game::findOrFail($id);
-        return view('admin.game.edit', compact('game'));
+        $gameTime = explode(' ', $game->game_time);
+        $game->g_date = $gameTime[0];
+        $game->g_time = $gameTime[1];
+        return view('admin.game.edit', compact('game','clubs','players','stadiums'));
     }
 
     /**
@@ -90,12 +98,11 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GameRequests $request, $id)
     {
-        $this->validate($request, $this->validateRules);
         $game = Game::findOrFail($id);
-        $game->update($request->all());
-        \Session::flash('flash_message', 'ƒQ[ƒ€‚Ìî•ñ‚ğXV‚µ‚Ü‚µ‚½B');
+        $game->update($request->except(['g_date','g_time']));
+        \Session::flash('flash_message', 'ã‚²ãƒ¼ãƒ ã®æƒ…å ±ã‚’æ›´æ–°ã—ã¾ã—ãŸã€‚');
         return redirect('admin/game');
     }
 
@@ -109,7 +116,7 @@ class GameController extends Controller
     {
         $game = Game::findOrFail($id);
         $game->delete($id);
-        \Session::flash('flash_message', 'ƒQ[ƒ€‚Ìî•ñ‚ğíœ‚µ‚Ü‚µ‚½B');
+        \Session::flash('flash_message', 'ã‚²ãƒ¼ãƒ ã®æƒ…å ±ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚');
         return redirect('admin/game');
     }
 }

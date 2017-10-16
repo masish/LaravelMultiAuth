@@ -16,8 +16,8 @@
                             </ul>
                         </div>
                     @endif
-                    {!! Form::model($player,['url' => ['admin/player', $player->id],'method' => 'PATCH','class' => 'form-horizontal','id' => 'post-input']) !!}
-                    @include('admin.player.fields')
+                    {!! Form::model($game,['url' => ['admin/game', $game->id],'method' => 'PATCH','class' => 'form-horizontal','id' => 'post-input']) !!}
+                    @include('admin.game.fields')
                     {!! Form::close() !!}
                 </div>
             </div>
