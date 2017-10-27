@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
     Route::resource('player', 'Admin\PlayerController');
     Route::resource('club', 'Admin\ClubController');
     Route::resource('game', 'Admin\GameController');
+    Route::get('top', 'Admin\TopController@index');
 });
 
 
