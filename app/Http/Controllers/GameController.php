@@ -36,4 +36,21 @@ class GameController extends Controller
         $stadiums = Config::get('stadium');
         return view('game.index' ,compact('games','stadiums'));
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $players = Player::orderBy('number', 'asc');
+        $positions = Config::get('position');
+        $game = Game::findOrFail($id);
+        $positions = Config::get('position');
+        return view('game.show', compact('game','players','positions'));
+    }
+
+
 }
