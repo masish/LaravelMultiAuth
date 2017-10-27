@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function()
     Route::get('top', 'Admin\TopController@index');
 });
 
+Route::resource('game', 'GameController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
